@@ -1,0 +1,9 @@
+_target_: src.data.sampling.FrameSampler
+
+request_frames: 60
+threshold_reject: 0.75
+sampling: conseq
+sampling_step: 1
+
+max_len: 10000
+min_len: 10

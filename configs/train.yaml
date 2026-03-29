@@ -1,0 +1,58 @@
+# Hydra: run dir layout ${expdir}/${project}/${experiment}/${run_id}/
+hydra:
+  run:
+    dir: ${expdir}/${project}/${experiment}/${run_id}/
+  job:
+    chdir: true
+    env_set:
+      WANDB_API_KEY: ''  # set in env or here for Weights & Biases
+      PYOPENGL_PLATFORM: 'egl'  # headless rendering
+      HYDRA_FULL_ERROR: 1
+      WANDB__SERVICE_WAIT: 300
+
+debug: false
+
+# ==================== Experiment directories ====================
+expdir: ${get_expdir:${debug}}
+experiment: motionfix   
+project: vae_motionfix  
+seed: 42
+logger_level: INFO
+run_id: 1 #${generate_id:}  # customize
+
+# Stage: vae | diffusion | vae_diffusion
+train:
+  stage: diffusion  
+
+# ==================== Resume training ====================
+resume: null
+resume_ckpt_name: null
+renderer: null # ait
+
+watch_model: false
+log_freq: 1000
+log: 'all'
+
+devices: [2]  # customize
+
+# ==================== Path to VAE-stage checkpoint for diffusion (fine-tune source) ====================
+# Directory or run folder of the pretrained model used when fine-tuning
+ftune: experiments/vae_motionfix/vae/3 # customize
+ftune_ckpt_name: 3999 # 'step'
+ftune_ckpt_path: ${get_last_checkpoint:${ftune},${ftune_ckpt_name}}
+
+statistics_file: statistics_${data.dataname}${get_debug:${debug}}.npy
+statistics_path: ${path.deps}/stats/${statistics_file}
+
+defaults:
+  - data: motionfix
+  - model: basic_clip
+  - machine: server
+  - trainer: base
+  - sampler: variable_conseq
+  - logger: wandb
+  - callback: base
+  - /path@path
+  - override hydra/job_logging: rich
+  - override hydra/hydra_logging: rich
+  - _self_

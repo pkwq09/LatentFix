@@ -1,0 +1,16 @@
+hydra:
+  run:
+    dir: .
+  job:
+    chdir: true
+  output_subdir: null
+
+
+# Experiment folder to evaluate (required)
+folder: experiments/vae_motionfix/diffusion/3si/3way_ddim_steps_50_motionfix_noise_599/ld_txt-2.0_ld_mot-4.5
+
+# Upper-bound style metrics: GT vs GT
+evaluate_gt: true
+
+# SMPL joint L2 (slow; disable if not needed)
+compute_l2_distance: false

@@ -1,0 +1,24 @@
+_target_: src.model.tmed_denoiser.TMED_denoiser
+
+text_encoded_dim: 768
+
+ff_size: 1024
+num_layers: 9
+num_heads: 4
+dropout: 0.1
+activation: 'gelu'
+
+condition: ${model.condition}
+motion_condition: ${model.motion_condition}
+
+latent_dim: ${model.latent_dim}
+nfeats: ${model.nfeats} # TODO FIX THIS
+
+use_sep: true
+
+pred_delta_motion: false
+
+use_latent_input: ${oc.select:model.use_latent_input,false}
+
+# false: stacked TransformerEncoder; true: SkipTransformerEncoder
+use_skip_transformer: true

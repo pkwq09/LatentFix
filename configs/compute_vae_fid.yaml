@@ -1,0 +1,34 @@
+hydra:
+  run:
+    dir: .
+  job:
+    chdir: true
+  output_subdir: null
+
+device: 'cuda'  # auto | cuda | cpu
+gpu_id: 0  # cuda device index when device: cuda
+
+
+# Model checkpoint
+# Path to VAE checkpoint (required)
+checkpoint: experiments/vae_motionfix/vae/3/checkpoints/last-epoch=3999.ckpt
+
+debug: false
+
+defaults:
+  - /path@path
+  - data: motionfix
+  - machine: server
+  - sampler: variable_conseq  # motionfix data uses ${sampler}
+  - _self_
+
+# data:
+#   batch_size: 256
+
+# Dataset split: val | test
+split: test
+
+save_results: true
+
+# Output directory when save_results=true
+results_dir: experiments/vae_motionfix/vae/3

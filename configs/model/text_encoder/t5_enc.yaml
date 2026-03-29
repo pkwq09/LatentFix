@@ -1,0 +1,6 @@
+name: t5_text_encoder
+_target_: src.model.textencoder.t5_encoder.T5TextEncoder
+
+finetune: false
+
+modelpath: ${path.deps}/flan-t5-base

@@ -1,0 +1,58 @@
+hydra:
+  run:
+    dir: .
+  job:
+    chdir: true
+  output_subdir: null
+# Folder containing checkpoints (required)
+folder: experiments/vae_motionfix/diffusion/3si
+mode: sample # denoise / sample /
+
+prob_way: '3way' # 2way
+
+device: 'cuda'  # auto | cuda | cpu
+gpu_id: 3
+
+savedir: null
+mean: false
+fact: 1
+number_of_samples: 1
+# Checkpoint step / name for the diffusion run to evaluate
+ckpt_name: '599'
+last_ckpt_path: ${get_last_checkpoint:${folder},${ckpt_name}}
+logger_level: INFO
+save_pkl: false
+render_vids: false
+subset: null
+
+
+# Diffusion sampling steps
+num_sampling_steps: 50
+
+# Optional: override infer scheduler at eval only
+# test_infer_scheduler: ddim
+
+
+# Classifier-free guidance (text+motion list and motion list)
+guidance_scale_text_n_motion: [2.0]
+guidance_scale_motion: [4.5]
+guidance_combinations: null #[[2.0, .0], [1.0, 2.0], ...]
+
+init_from: 'noise'
+condition_mode: 'full_cond' # mot_cond | text_cond
+inpaint: false
+linear_gd: false
+save_gt: false
+
+avg_target_len_for_flops: 120
+
+defaults:
+  - _self_
+  - data: motionfix
+  - /path@path
+  - override hydra/job_logging: rich
+  - override hydra/hydra_logging: rich
+
+
+# Splits to load: ["test"], ["val"], or ["test", "val"]
+split_to_load: ["test"]
