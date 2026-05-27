@@ -14,7 +14,7 @@ debug: false
 
 # ==================== Experiment directories ====================
 expdir: ${get_expdir:${debug}}
-experiment: motionfix   
+experiment: diffusion   
 project: vae_motionfix  
 seed: 42
 logger_level: INFO
