@@ -7,7 +7,7 @@ hydra:
 
 
 # Experiment folder to evaluate (required)
-folder: experiments/vae_motionfix/diffusion/3si/3way_ddim_steps_50_motionfix_noise_599/ld_txt-2.0_ld_mot-4.5
+folder: ???
 
 # Upper-bound style metrics: GT vs GT
 evaluate_gt: true
