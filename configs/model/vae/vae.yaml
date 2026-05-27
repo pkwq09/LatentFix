@@ -8,7 +8,7 @@ nfeats: ${model.nfeats}
 latent_dim: [3, 256]
 
 # Pretrained VAE checkpoint (resume training)
-pretrained_ckpt: #experiments/vae_motionfix/vae/3/checkpoints/last-epoch=3999.ckpt  # customize
+pretrained_ckpt: ??? # customize
 pretrained_state_key: 'vae'
 pretrained_strict: true
 
